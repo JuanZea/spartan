@@ -158,7 +158,12 @@ Construido con Vue 3 y TailwindCSS, con soporte nativo de internacionalización.
     ---
     class: col-span-2 md:col-span-1
     ---
-    :assistant-demo
+    :::::assistant-demo{placeholder="¿Hay algún componente para notificaciones?"}
+      Un asistente impulsado por IA para ayudarte con la documentación de Spartan.
+
+      #banner
+      Sin fondos
+    :::::
 
     #title
     [Asistente]{.text-primary} Inteligente

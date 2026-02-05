@@ -158,7 +158,12 @@ Built with Vue 3 and TailwindCSS, with native internationalization support.
     ---
     class: col-span-2 md:col-span-1
     ---
-    :assistant-demo
+    :::::assistant-demo{placeholder="Is there a component for notifications?"}
+      An AI-powered assistant to help you with Spartan documentation.
+
+      #banner
+      Out of funds
+    :::::
 
     #title
     [Smart]{.text-primary} Assistant

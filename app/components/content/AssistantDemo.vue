@@ -1,7 +1,24 @@
+<script setup lang="ts">
+defineProps<{
+  placeholder: string;
+}>();
+</script>
+
 <template>
-  <div class="flex flex-col w-full h-96 rounded-lg overflow-hidden relative">
+  <div class="flex flex-col w-full h-96 rounded-lg overflow-hidden">
     <!-- banner -->
-     <div class="bg-primary font-bold">BANNER</div>
+     <div class="flex items-center gap-2 bg-inverted font-bold top-0 right-0 rotate-45 translate-y-full translate-x-1/4 absolute text-inverted px-2 py-1 shadow-lg rounded-xl">
+      <UColorModeImage
+        class="h-5"
+        light="/landing/dark/evertec.svg"
+        dark="/landing/light/evertec.svg"
+        alt="Banner"
+      />
+
+      <slot name="banner" />
+
+      <span>💸</span>
+     </div>
 
     <div class="flex-1 overflow-y-auto">
       <div
@@ -14,7 +31,7 @@
           />
         </div>
         <p class="text-sm text-muted">
-          Un asistente impulsado por IA para ayudarte con la documentación de Spartan.
+          <slot />
         </p>
       </div>
     </div>
@@ -25,7 +42,7 @@
       >
         <UInput
           :disabled="true"
-          placeholder="¿Hay algún componente para notificaciones?"
+          :placeholder
           size="sm"
           class="flex-1"
           :ui="{

@@ -3,7 +3,7 @@ const appConfig = useAppConfig();
 </script>
 
 <template>
-  <div class="flex items-center font-display">
+  <div class="font-display flex items-center">
     <UColorModeImage
       :light="appConfig.header?.logo?.light || appConfig.header?.logo?.dark"
       :dark="appConfig.header?.logo?.dark || appConfig.header?.logo?.light"

@@ -8,6 +8,7 @@ import { hash } from 'ohash'
 import { CalendarDate, Time } from '@internationalized/date'
 import * as theme from '#build/ui'
 import { get, set } from '#ui/utils'
+const parseMarkdown = useMarkdownParser()
 
 interface CastImport {
   name: string

@@ -21,6 +21,7 @@ Construido con Vue 3 y TailwindCSS, con soporte nativo de internacionalización.
 #links
   :::u-button
   ---
+  class: font-bold
   color: neutral
   size: xl
   to: /es/getting-started/installation
@@ -289,6 +290,7 @@ Construido con Vue 3 y TailwindCSS, con soporte nativo de internacionalización.
         ::::::div{.flex.flex-col.gap-3.w-full.max-w-xs}
           :::::::u-button
           ---
+          class: font-bold
           block: true
           color: primary
           size: lg

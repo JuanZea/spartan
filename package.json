@@ -4,7 +4,7 @@
     "dev": "nuxt dev",
     "build": "nuxt build",
     "generate": "nuxt generate",
-    "deploy": "wrangler deploy --assets ./output/public"
+    "deploy": "wrangler deploy --assets ./.output/public"
   },
   "dependencies": {
     "@nuxt/fonts": "0.13.0",

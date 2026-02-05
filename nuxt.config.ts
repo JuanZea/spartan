@@ -32,6 +32,10 @@ export default defineNuxtConfig({
     ],
   },
 
+  nitro: {
+    preset: 'static',
+  },
+
   routeRules: {
     '/': { redirect: '/es' },
   },

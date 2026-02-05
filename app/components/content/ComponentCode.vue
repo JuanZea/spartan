@@ -58,7 +58,6 @@ const castMap: Record<string, Cast> = {
 }
 
 const props = defineProps<{
-  prose?: boolean
   prefix?: string
   /** Override the slug taken from the route */
   slug?: string
@@ -107,14 +106,10 @@ const route = useRoute()
 const { $prettier } = useNuxtApp()
 
 const camelName = camelCase(props.slug ?? route.path.split('/').pop() ?? '')
-const name = `${props.prose ? 'Prose' : 'U'}${upperFirst(camelName)}`
+const name = `U${upperFirst(camelName)}`
 const component = defineAsyncComponent(() => {
   if (props.prefix) {
     return import(`#ui/components/${props.prefix}/${upperFirst(camelName)}.vue`)
-  }
-
-  if (props.prose) {
-    return import(`#ui/components/prose/${upperFirst(camelName)}.vue`)
   }
 
   return import(`#ui/components/${upperFirst(camelName)}.vue`)
@@ -144,7 +139,7 @@ function setComponentProp(name: string, value: any) {
   set(componentProps, name, value)
 }
 
-const componentTheme = ((props.prose ? theme.prose : theme) as any)[camelName]
+const componentTheme = (theme as any)[camelName]
 const meta = await fetchComponentMeta(name as any)
 
 function mapKeys(obj: object, parentKey = ''): any {
@@ -192,30 +187,6 @@ const options = computed(() => {
 
 const code = computed(() => {
   let code = ''
-
-  if (props.prose) {
-    code += `\`\`\`mdc
-::${camelName}`
-
-    const proseProps = Object.entries(componentProps).map(([key, value]) => {
-      if (value === undefined || value === null || value === '' || props.hide?.includes(key)) {
-        return
-      }
-
-      return `${key}="${value}"`
-    }).filter(Boolean).join(' ')
-
-    if (proseProps.length) {
-      code += `{${proseProps}}`
-    }
-
-    code += `
-${props.slots?.default}
-::
-\`\`\``
-
-    return code
-  }
 
   if (props.collapse) {
     code += `::code-collapse
@@ -432,15 +403,6 @@ const { data: ast } = await useAsyncData(codeKey, async () => {
           </template>
         </component>
       </div>
-
-      <ClientOnly>
-        <LazyComponentThemeVisualizer
-          :container="componentContainer"
-          :position-container="wrapperContainer"
-          :slug="props.slug"
-          :prose="props.prose"
-        />
-      </ClientOnly>
     </div>
 
     <MDCRenderer v-if="ast" :body="ast.body" :data="ast.data" class="[&_pre]:rounded-t-none! [&_div.my-5]:mt-0!" />

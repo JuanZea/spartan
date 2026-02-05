@@ -7,7 +7,17 @@ defineProps<{
 <template>
   <div class="flex flex-col w-full h-96 rounded-lg overflow-hidden">
     <!-- banner -->
-     <div class="flex items-center gap-2 bg-inverted font-bold top-0 right-0 rotate-45 translate-y-full translate-x-1/4 absolute text-inverted px-2 py-1 shadow-lg rounded-xl">
+     <div
+       class="flex items-center gap-2 bg-inverted font-bold top-0 right-0 rotate-45 translate-y-full translate-x-1/4 absolute text-inverted px-5 py-2 drop-shadow-lg"
+       :style="{
+         clipPath: `polygon(
+           0% 3%, 10% 0%, 22% 4%, 35% 0%, 48% 3%, 60% 0%, 73% 4%, 86% 0%, 100% 2%,
+           98% 12%, 100% 25%, 96% 38%, 100% 52%, 97% 65%, 100% 78%, 96% 92%, 100% 100%,
+           88% 97%, 75% 100%, 62% 96%, 48% 100%, 35% 97%, 22% 100%, 10% 96%, 0% 98%,
+           3% 88%, 0% 75%, 4% 62%, 0% 48%, 3% 35%, 0% 22%, 4% 10%
+         )`
+       }"
+     >
       <UColorModeImage
         class="h-5"
         light="/landing/dark/evertec.svg"

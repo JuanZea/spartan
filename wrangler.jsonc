@@ -1,6 +1,5 @@
 {
   "name": "spartan",
-  "main": "./.output/server/index.mjs",
   "compatibility_date": "2026-02-05",
   "workers_dev": true,
   "compatibility_flags": ["nodejs_compat"],
@@ -9,14 +8,6 @@
   },
   "assets": {
     "binding": "ASSETS",
-    "directory": "./.output/public/",
-  },
-  "d1_databases": [
-    {
-      "binding": "DB",
-      "database_id": "f46b7fb6-c040-457d-96c0-4fb9bc952213",
-      "migrations_table": "__drizzle_migrations",
-      "migrations_dir": "server/database/migrations/sqlite",
-    },
-  ],
+    "directory": "./.output/public/"
+  }
 }

@@ -32,8 +32,12 @@ export default defineNuxtConfig({
     ],
   },
 
+  fonts: {
+    priority: ['fontsource']
+  },
+
   nitro: {
-    preset: 'cloudflare_module',
+    preset: 'static',
   },
 
   routeRules: {

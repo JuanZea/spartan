@@ -1,5 +1,6 @@
 <!-- eslint-disable no-useless-escape -->
 <script setup lang="ts">
+import * as prettier from "prettier";
 import type { ChipProps } from '@nuxt/ui'
 import json5 from 'json5'
 import { upperFirst, camelCase, kebabCase } from 'scule'
@@ -103,7 +104,6 @@ const props = defineProps<{
 }>()
 
 const route = useRoute()
-const { $prettier } = useNuxtApp()
 
 const camelName = camelCase(props.slug ?? route.path.split('/').pop() ?? '')
 const name = `U${upperFirst(camelName)}`
@@ -140,7 +140,6 @@ function setComponentProp(name: string, value: any) {
 }
 
 const componentTheme = (theme as any)[camelName]
-const meta = await fetchComponentMeta(name as any)
 
 function mapKeys(obj: object, parentKey = ''): any {
   return Object.entries(obj || {}).flatMap(([key, value]: [string, any]) => {
@@ -158,7 +157,6 @@ const options = computed(() => {
   const keys = mapKeys(props.props || {})
 
   return keys.map((key: string) => {
-    const prop = meta?.meta?.props?.find((prop: any) => prop.name === key)
     const propItems = get(props.items, key, [])
     const items = propItems.length
       ? propItems.map((item: any) => ({
@@ -166,9 +164,7 @@ const options = computed(() => {
           label: String(item),
           chip: key.toLowerCase().endsWith('color') ? { color: item } : undefined
         }))
-      : prop?.type === 'boolean' || prop?.type === 'boolean | undefined'
-        ? [{ value: true, label: 'true' }, { value: false, label: 'false' }]
-        : Object.keys(componentTheme?.variants?.[key] || {}).filter((variant) => {
+      : Object.keys(componentTheme?.variants?.[key] || {}).filter((variant) => {
             return variant !== 'true' && variant !== 'false'
           }).map(variant => ({
             value: variant,
@@ -179,7 +175,7 @@ const options = computed(() => {
     return {
       name: key,
       label: key,
-      type: props?.cast?.[key] ?? prop?.type,
+      type: props?.cast?.[key],
       items
     }
   })
@@ -263,8 +259,7 @@ const code = computed(() => {
       continue
     }
 
-    const prop = meta?.meta?.props?.find((prop: any) => prop.name === key)
-    const propDefault = prop && (prop.default ?? prop.tags?.find(tag => tag.name === 'defaultValue')?.text ?? componentTheme?.defaultVariants?.[prop.name])
+    const propDefault = componentTheme?.defaultVariants?.[key]
     const name = kebabCase(key)
 
     if (typeof value === 'boolean') {
@@ -319,9 +314,6 @@ const code = computed(() => {
 
 const codeKey = computed(() => `component-code-${name}-${hash(props)}`)
 
-const wrapperContainer = ref<HTMLElement | null>(null)
-const componentContainer = ref<HTMLElement | null>(null)
-
 const { data: ast } = await useAsyncData(codeKey, async () => {
   if (!props.prettier) {
     return parseMarkdown(code.value)
@@ -329,11 +321,13 @@ const { data: ast } = await useAsyncData(codeKey, async () => {
 
   let formatted = ''
   try {
-    formatted = await ($prettier as any).format(code.value, {
+    formatted = await prettier.format(code.value, {
       trailingComma: 'none',
       semi: false,
       singleQuote: true,
-      printWidth: 100
+      printWidth: 100,
+      parser: 'vue',
+      htmlWhitespaceSensitivity: 'ignore',
     })
   } catch {
     formatted = code.value

@@ -25,5 +25,8 @@
       "sharp",
       "vue-demi"
     ]
+  },
+  "devDependencies": {
+    "prettier": "3.8.1"
   }
 }

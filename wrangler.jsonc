@@ -4,5 +4,13 @@
   "assets": {
     "directory": "./.output/public",
     "not_found_handling": "404-page"
-  }
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_id": "f46b7fb6-c040-457d-96c0-4fb9bc952213",
+      "migrations_table": "__drizzle_migrations",
+      "migrations_dir": "server/database/migrations/sqlite"
+    }
+  ]
 }

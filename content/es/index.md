@@ -33,7 +33,7 @@ Construido con Vue 3 y TailwindCSS, con soporte nativo de internacionalización.
   ---
   color: neutral
   size: xl
-  to: /es/componentes/entrada-de-datos/input
+  to: /es/components/data-input/input
   icon: i-lucide-layout-grid
   variant: outline
   ---
